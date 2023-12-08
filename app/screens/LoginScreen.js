@@ -1,7 +1,8 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image } from 'react-native';
 import MaterilaIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+
 
 export default function LoginScreen() {
     return (
@@ -16,10 +17,16 @@ export default function LoginScreen() {
                 <TextInput placeholder='Password' style={{flex:1, paddingVertical: 0, fontSize: 18}} keyboardType='email-address'/>
             </View>
             <TouchableOpacity onPress={() => {}}>
-                <Text>Login</Text>
+                <Text style={styles.btn}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {}}>
-                <Text>Forgot the password</Text>
+                <Text style={styles.forgot}>Forgot the password</Text>
+            </TouchableOpacity>
+
+            <Text style={{fontSize: 15, color: "#666"}}>Or, login with... </Text>
+
+            <TouchableOpacity onPress={() => {}}>
+                <Image source={require('../assets/images/google.png')}/>
             </TouchableOpacity>
         </View>
     );
@@ -50,4 +57,32 @@ const styles = StyleSheet.create({
         marginRight: 8,
         marginTop: 5,
     },
+    btn: {
+        width: 150,
+        padding: 14,
+        backgroundColor: "#BA4CB1",
+        marginTop: 15,
+        marginBottom: 15,
+        borderRadius: 10,
+        textAlign: 'center',
+        color: "white",
+        fontSize: 20,
+    },
+    forgot: {
+        fontSize: 15,
+        borderBottomWidth: 2,
+        borderColor: "#666",
+        paddingBottom: 1,
+        marginBottom: 35,
+        color: "#666",
+    },
+    // gam: {
+    //     height: 24,
+    //     width: 24,
+    //     borderColor: "#ddd",
+    //     borderWidth: 2,
+    //     borderRadius: 10,
+    //     paddingHorizontal: 30,
+    //     paddingVertical: 10,
+    // },
 })
