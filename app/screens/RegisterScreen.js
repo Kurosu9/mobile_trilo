@@ -5,13 +5,13 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
 
-export default function LoginScreen( {navigation} ) {
+export default function RegisterScreen( {navigation} ) {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.back} onPress={() => navigation.navigate("Loger")}>
                 <AntDesign style={{fontSize: 25}} name='arrowleft'/>
             </TouchableOpacity>
-            <Text style={styles.text}>Login</Text>
+            <Text style={styles.text}>Register</Text>
             <View style={styles.login}>
                 <MaterilaIcons style={styles.icon} name='alternate-email' size={20} color="black"/>
                 <TextInput placeholder='Email' style={{flex:1, paddingVertical: 0, fontSize: 18}} keyboardType='email-address'/>
