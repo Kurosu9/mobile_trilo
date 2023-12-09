@@ -36,7 +36,7 @@ export default function LoginScreen( {navigation} ) {
                         <TextInput secureTextEntry={!showPassword} placeholder='Password' style={{flex:1, paddingVertical: 0, fontSize: 18}}/>
                         <IonIcons name={showPassword ? 'eye-off' : "eye"} style={{fontSize: 24, marginRight: 5}} onPress={toggleShowPassword}/>
                     </View>
-                    <TouchableOpacity onPress={() => {}}>
+                    <TouchableOpacity onPress={() => navigation.navigate("Tasks")}>
                         <Text style={styles.btn}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => {}}>
