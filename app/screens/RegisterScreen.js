@@ -74,12 +74,12 @@ export default function RegisterScreen( {navigation} ) {
                     </View>
                     <View style={styles.register}>
                         <FontAwesome5 style={styles.icon} name='lock' size={20} color="black"/>
-                        <TextInput placeholder='Password' style={{flex:1, paddingVertical: 0, fontSize: 18}}/>
+                        <TextInput secureTextEntry={!showPassword} placeholder='Password' style={{flex:1, paddingVertical: 0, fontSize: 18}}/>
                         <IonIcons name={showPassword ? 'eye-off' : "eye"} style={{fontSize: 24, marginRight: 5}} onPress={toggleShowPassword}/>
                     </View>
                     <View style={styles.register}>
                         <FontAwesome5 style={styles.icon} name='lock' size={20} color="black"/>
-                        <TextInput placeholder='Confirm Password' style={{flex:1, paddingVertical: 0, fontSize: 18}}/>
+                        <TextInput secureTextEntry={!showPassword} placeholder='Confirm Password' style={{flex:1, paddingVertical: 0, fontSize: 18}}/>
                         <IonIcons name={showPassword ? 'eye-off' : "eye"} style={{fontSize: 24, marginRight: 5}} onPress={toggleShowPassword}/>
                     </View>
                     <View style={styles.register}>
@@ -101,6 +101,12 @@ export default function RegisterScreen( {navigation} ) {
                     <TouchableOpacity onPress={() => {}}>
                         <Text style={styles.btn}>Sign up</Text>
                     </TouchableOpacity>
+                    <View style={{flexDirection: 'row'}}>
+                        <Text style={{marginLeft: 5, fontSize: 15, fontWeight: 'bold'}}>Already sign up?</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                            <Text style={{marginLeft: 5, fontSize: 15, color: '#FABDF5', fontWeight: 'bold'}}>Login</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -114,7 +120,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-        paddingBottom: 10,
+        paddingBottom: 20,
     },
     text: {
         fontSize: 30,
