@@ -103,7 +103,9 @@ export default function RegisterScreen( {navigation} ) {
                     </TouchableOpacity>
                     <View style={{flexDirection: 'row'}}>
                         <Text style={{marginLeft: 5, fontSize: 15, fontWeight: 'bold'}}>Already sign up?</Text>
-                        
+                        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                            <Text style={{marginLeft: 5, fontSize: 15, color: '#FABDF5', fontWeight: 'bold'}}>Login</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </ScrollView>
