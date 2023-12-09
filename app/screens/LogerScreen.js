@@ -12,10 +12,10 @@ export default function LogerScreen( {navigation} ) {
                 <Text style={styles.text}>Trilo</Text>
             </View>
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-                <Text style={styles.btn}>Login</Text>
+                <Text style={styles.btn}>LOGIN</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-                <Text style={styles.btn}>Register</Text>
+                <Text style={styles.btn}>SIGN UP</Text>
             </TouchableOpacity>
         </View>
     );
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     btn: {
         width: 350,
         padding: 14,
-        backgroundColor: "#CB38B1",
+        backgroundColor: "#FFC0CB",
         marginTop: 15,
         borderRadius: 10,
         textAlign: 'center',
