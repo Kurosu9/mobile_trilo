@@ -15,7 +15,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import Task from "./Task";
 // import { createDrawerNavigator } from "@react-navigation/drawer";
 // import { NavigationContainer } from "@react-navigation/native";
-
+ 
 // const Drawer = createDrawerNavigator();
 
 export default function AllTasks({ navigation }) {
