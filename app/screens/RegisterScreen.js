@@ -33,6 +33,20 @@ export default function RegisterScreen({ navigation }) {
   const [text, setText] = useState("Date of Birth");
   const auth = FIREBASE_AUTH;
 
+
+export default function RegisterScreen( {navigation} ) {
+    
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [date, setDate] = useState(new Date);
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+    const [text, setText] = useState('Date of Birth');
+    const auth = FIREBASE_AUTH;
+
   const signUp = async () => {
     setLoading(true);
     try {
@@ -40,7 +54,6 @@ export default function RegisterScreen({ navigation }) {
         alert("Password should be at least 8 characters long!");
         return;
       }
-
       if (password !== confirmPassword) {
         alert("Passwords do not match!");
         return;
