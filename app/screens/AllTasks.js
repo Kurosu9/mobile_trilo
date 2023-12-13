@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import Task from "./Task";
 
+
 export default function AllTasks() {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
