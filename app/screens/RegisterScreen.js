@@ -9,6 +9,7 @@ import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth'; 
 
 
+
 export default function RegisterScreen( {navigation} ) {
     
     const [email, setEmail] = useState('');
