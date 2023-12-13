@@ -1,8 +1,16 @@
 {
   "users": [
     {
-      "login": "aliia",
-      "password": "1231"
+      "email": "aliia",
+      "password": "1231",
+      "fullname": "Aliia Malaeva",
+      "birthday": "22/1/2004",
+      "id": 1
+    }
+  ],
+  "tasks": [
+    {
+      "text": "TASK1"
     }
   ]
 }
