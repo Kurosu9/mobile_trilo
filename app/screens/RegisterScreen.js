@@ -22,6 +22,40 @@ export default function RegisterScreen( {navigation} ) {
     const [show, setShow] = useState(false);
     const [text, setText] = useState('Date of Birth');
     const auth = FIREBASE_AUTH;
+  
+    //   const [email, setEmail] = useState("");
+  //   const [password, setPassword] = useState("");
+  //   const [passwordConfirm, setPasswordConfirm] = useState("");
+  //   const [fullname, setFullname] = useState("");
+  //   const [birthday, setBirthday] = useState("");
+
+  //   const API = "http://localhost:8000/users";
+
+  //   const addUser = async formData => {
+  //     await axios.post(API, formData);
+  //   };
+
+  //   function createUser() {
+  //     if (
+  //       !email.trim() ||
+  //       !password.trim() ||
+  //       !passwordConfirm.trim() ||
+  //       !fullname.trim() ||
+  //       !text.trim()
+  //     ) {
+  //       alert("Some inputs are empty!");
+  //       return;
+  //     }
+  //     let formData = new FormData();
+  //     formData.append("email", email);
+  //     formData.append("password", password);
+  //     // formData.append("password_confirm", passwordConfirm);
+  //     formData.append("fullname", fullname);
+  //     formData.append("birthday", text);
+
+  //     addUser(formData);
+  //     navigation.navigate("Tasks");
+  //   }
 
     const signUp = async () => {
         setLoading(true);
