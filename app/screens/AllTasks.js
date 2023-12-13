@@ -18,7 +18,7 @@ import Task from "./Task";
  
 // const Drawer = createDrawerNavigator();
 
-export default function AllTasks({ navigation }) {
+export default function AllTasks() {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
 
