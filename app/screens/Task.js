@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   circular: {
     width: 12,
     height: 12,
-    borderColor: "#eec0c8",
+    borderColor: "#55BCF6",
     borderWidth: 2,
     borderRadius: 5,
   },
