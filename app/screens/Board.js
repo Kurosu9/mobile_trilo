@@ -12,46 +12,52 @@ import {
   ScrollView,
 } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import Task from "./Task";
+import BoardComponent from "./BoardComponent";
 
-export default function AllTasks({ navigation }) {
-  const [task, setTask] = useState();
-  const [taskItems, setTaskItems] = useState([]);
+export default function Board({ navigation }) {
+  const [board, setBoard] = useState();
+  const [boardItems, setBoardItems] = useState([]);
 
-  const handleAddTask = () => {
+  const handleAddBoard = () => {
     Keyboard.dismiss();
-    setTaskItems([...taskItems, task]);
-    setTask(null);
+    setBoardItems([...boardItems, board]);
+    setBoard(null);
   };
 
-  const completeTask = index => {
-    let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
-    setTaskItems(itemsCopy);
-  };
+  // const completeBoard = index => {
+  //   let itemsCopy = [...boardItems];
+  //   itemsCopy.splice(index, 1);
+  //   setBoardItems(itemsCopy);
+  // };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={styles.back}
-        onPress={() => navigation.navigate("Boards")}>
-        <AntDesign style={{ fontSize: 25 }} name="arrowleft" />
-      </TouchableOpacity>
+        onPress={() => navigation.navigate("Loger")}>
+        
+      </TouchableOpacity> */}
 
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
         }}
         keyboardShouldPersistTaps="handled">
-        <View style={styles.tasksWrapper}>
-          <Text style={styles.sectionTitle}>Tasks</Text>
+        <View style={styles.boardsWrapper}>
+          <View style={styles.titlelogout}>
+            <Text style={styles.sectionTitle}>Boards</Text>
+            <Text style={styles.btnLogout}>LOGOUT</Text>
+          </View>
+
           <View style={styles.items}>
-            {taskItems.map((item, index) => {
+            {boardItems.map((item, index) => {
               return (
                 <TouchableOpacity
                   key={index}
-                  onPress={() => completeTask(index)}>
-                  <Task text={item} />
+
+                  // onPress={() => completeBoard(index)}
+                >
+                  <BoardComponent text={item} index={index} />
                 </TouchableOpacity>
               );
             })}
@@ -61,14 +67,14 @@ export default function AllTasks({ navigation }) {
 
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.writeTaskWrapper}>
+        style={styles.writeBoardWrapper}>
         <TextInput
           style={styles.input}
-          placeholder={"Write a task"}
-          value={task}
-          onChangeText={text => setTask(text)}
+          placeholder={"Write the board name"}
+          value={board}
+          onChangeText={text => setBoard(text)}
         />
-        <TouchableOpacity onPress={() => handleAddTask()}>
+        <TouchableOpacity onPress={() => handleAddBoard()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
@@ -83,8 +89,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  tasksWrapper: {
+  boardsWrapper: {
     paddingTop: 80,
+
     paddingHorizontal: 20,
   },
   back: {
@@ -95,17 +102,33 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: "bold",
+    color: "#89666c",
+  },
+  titlelogout: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginRight: 15,
   },
   items: {
     marginTop: 30,
   },
-  writeTaskWrapper: {
+  writeBoardWrapper: {
     position: "absolute",
     bottom: 60,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
+  },
+  btnLogout: {
+    alignContent: "center",
+    backgroundColor: "rgb(146, 7, 7)",
+    padding: 6,
+    // borderWidth: 2,
+    color: "white",
+    fontWeight: "800",
+    display: "flex",
+    justifyContent: "center",
   },
   input: {
     paddingVertical: 15,
