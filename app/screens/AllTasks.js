@@ -14,7 +14,7 @@ import {
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Task from "./Task";
 
-export default function AllTasks({ navigation }) {
+export default function AllTasks() {
   const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
 
