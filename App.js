@@ -10,15 +10,14 @@ import AllTasks from './app/screens/AllTasks';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
   return (
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Loger" component={LogerScreen}/>
-          <Stack.Screen name="Login" component={LoginScreen}/>
-          <Stack.Screen name="Register" component={RegisterScreen}/>
-          <Stack.Screen name="Tasks" component={AllTasks}/>
-        </Stack.Navigator>
-      </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Loger" component={LogerScreen}/>
+        <Stack.Screen name="Login" component={LoginScreen}/>
+        <Stack.Screen name="Register" component={RegisterScreen}/>
+        {/* <Stack.Screen name="Tasks" component={AllTasks}/> */}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }

@@ -1,20 +1,38 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, StatusBar, ScrollView, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, StatusBar, ScrollView, SafeAreaView, ActivityIndicator, Alert } from 'react-native';
 import MaterilaIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import IonIcons from "react-native-vector-icons/Ionicons";
+import { FIREBASE_AUTH } from '../../FirebaseConfig';
+import { signInWithEmailAndPassword } from 'firebase/auth'; 
 
 
 export default function LoginScreen( {navigation} ) {
 
-    // const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const auth = FIREBASE_AUTH;
+
+    const signIn = async () => {
+        setLoading(true);
+        try {
+            const response = await signInWithEmailAndPassword(auth, email, password);
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+            Alert.alert("Trilo", "Registration failed: " + error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
 
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     }
-
 
     return (
         <SafeAreaView style={styles.container}>
@@ -29,16 +47,20 @@ export default function LoginScreen( {navigation} ) {
                     <Text style={styles.text}>Login</Text>
                     <View style={styles.login}>
                         <MaterilaIcons style={styles.icon} name='alternate-email' size={20} color="black"/>
-                        <TextInput placeholder='Email' style={{flex:1, paddingVertical: 0, fontSize: 18}} keyboardType='email-address'/>
+                        <TextInput style={{flex:1, paddingVertical: 0, fontSize: 18}} value={email} placeholder='Email' autoCapitalize='none' onChangeText={(text) => setEmail(text)}/>
                     </View>
                     <View style={styles.login}>
                         <FontAwesome5 style={styles.icon} name='lock' size={20} color="black"/>
-                        <TextInput secureTextEntry={!showPassword} placeholder='Password' style={{flex:1, paddingVertical: 0, fontSize: 18}}/>
+                        <TextInput style={{flex:1, paddingVertical: 0, fontSize: 18}} value={password} secureTextEntry={!showPassword} placeholder='Password' autoCapitalize='none' onChangeText={(text) => setPassword(text)}/>
                         <IonIcons name={showPassword ? 'eye-off' : "eye"} style={{fontSize: 24, marginRight: 5}} onPress={toggleShowPassword}/>
                     </View>
-                    <TouchableOpacity onPress={() => navigation.navigate("Tasks")}>
-                        <Text style={styles.btn}>Login</Text>
-                    </TouchableOpacity>
+                    {loading ? (
+                        <ActivityIndicator size="large" color="#0000ff"/>
+                    ) : (
+                        <TouchableOpacity onPress={signIn}>
+                            <Text style={styles.btn}>Login</Text>
+                        </TouchableOpacity>
+                    )} 
                     <TouchableOpacity onPress={() => {}}>
                         <Text style={styles.forgot}>Forgot the password</Text>
                     </TouchableOpacity>
