@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import {
   Platform,
-  SafeAreaView,
   StyleSheet,
-  StatusBar,
   Text,
   KeyboardAvoidingView,
   View,
   TextInput,
   TouchableOpacity,
   Keyboard,
+  Button,
   ScrollView,
 } from "react-native";
+import AntDesign from "react-native-vector-icons/AntDesign";
 import Task from "./Task";
-
+// import { createDrawerNavigator } from "@react-navigation/drawer";
+// import { NavigationContainer } from "@react-navigation/native";
+ 
+// const Drawer = createDrawerNavigator();
 
 export default function AllTasks() {
   const [task, setTask] = useState();
@@ -25,6 +28,14 @@ export default function AllTasks() {
     setTask(null);
   };
 
+  // function TasksScreen() {
+  //   return (
+  //     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+  //       <Button onPress={() => navigation.navigate("Loger")} title="Go back" />
+  //     </View>
+  //   );
+  // }
+
   const completeTask = index => {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
@@ -33,13 +44,24 @@ export default function AllTasks() {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.back}
+        onPress={() => navigation.navigate("Loger")}>
+        <AntDesign style={{ fontSize: 25 }} name="arrowleft" />
+      </TouchableOpacity>
+      {/* <NavigationContainer> */}
+      {/* <Drawer.Navigator initialRouteName="Tasks">
+          <Drawer.Screen name="Loger" component={TasksScreen} />
+        </Drawer.Navigator> */}
+      {/* </NavigationContainer> */}
+
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
         }}
         keyboardShouldPersistTaps="handled">
         <View style={styles.tasksWrapper}>
-          <Text style={styles.sectionTitle}>Today's tasks</Text>
+          <Text style={styles.sectionTitle}>Tasks</Text>
           <View style={styles.items}>
             {taskItems.map((item, index) => {
               return (
@@ -76,11 +98,16 @@ export default function AllTasks() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#E8EAED",
+    backgroundColor: "#fff",
   },
   tasksWrapper: {
     paddingTop: 80,
     paddingHorizontal: 20,
+  },
+  back: {
+    marginTop: 40,
+    marginLeft: 20,
+    position: "absolute",
   },
   sectionTitle: {
     fontSize: 24,
@@ -102,19 +129,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "#FFF",
     borderRadius: 60,
-    borderColor: "#C0C0C0",
+    borderColor: "#eec0c8",
+    // color: "#eec0c8",
     borderWidth: 1,
     width: 250,
   },
   addWrapper: {
     width: 60,
     height: 60,
-    backgroundColor: "#FFF",
+    backgroundColor: "#eec0c8",
     borderRadius: 60,
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "#C0C0C0",
+    borderColor: "#fff",
     borderWidth: 1,
   },
-  addText: {},
+  addText: {
+    color: "#fff",
+    fontSize: 24,
+  },
+  text: {
+    fontSize: 40,
+    fontWeight: "bold",
+    margin: 10,
+  },
 });
