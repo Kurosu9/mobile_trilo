@@ -1,21 +1,13 @@
-import React, { useState, useContext } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  TouchableOpacity,
-  Image,
-  StatusBar,
-  ScrollView,
-  SafeAreaView,
-} from "react-native";
+
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, StatusBar, ScrollView, SafeAreaView, ActivityIndicator, Alert } from 'react-native';
 import MaterilaIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import IonIcons from "react-native-vector-icons/Ionicons";
 // import axios from "axios";
-// import { authContext } from "../context/authContext";
+import { FIREBASE_AUTH } from '../../FirebaseConfig';
+import { signInWithEmailAndPassword } from 'firebase/auth'; 
 
 export default function LoginScreen({ navigation }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,6 +22,24 @@ export default function LoginScreen({ navigation }) {
   //     try {
   //       const response = await axios.get("http://localhost:8000/users"); // Update the path
   //       const users = response.data.users;
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const auth = FIREBASE_AUTH;
+
+    const signIn = async () => {
+        setLoading(true);
+        try {
+            const response = await signInWithEmailAndPassword(auth, email, password);
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+            Alert.alert("Trilo", "Registration failed: " + error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
 
   //       const user = users.find(
   //         u => u.email === email && u.password === password
@@ -63,6 +73,36 @@ export default function LoginScreen({ navigation }) {
   //     try {
   //       const usersJson = await AsyncStorage.getItem("users");
   //       const users = JSON.parse(usersJson);
+    return (
+        <SafeAreaView style={styles.container}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <View>
+                        <Image style={{height: 400, width: 400}} source={require("../assets/images/login.png")}/>
+                        <TouchableOpacity style={styles.back} onPress={() => navigation.navigate("Loger")}>
+                            <AntDesign style={{fontSize: 25}} name='arrowleft'/>
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={styles.text}>Login</Text>
+                    <View style={styles.login}>
+                        <MaterilaIcons style={styles.icon} name='alternate-email' size={20} color="black"/>
+                        <TextInput style={{flex:1, paddingVertical: 0, fontSize: 18}} value={email} placeholder='Email' autoCapitalize='none' onChangeText={(text) => setEmail(text)}/>
+                    </View>
+                    <View style={styles.login}>
+                        <FontAwesome5 style={styles.icon} name='lock' size={20} color="black"/>
+                        <TextInput style={{flex:1, paddingVertical: 0, fontSize: 18}} value={password} secureTextEntry={!showPassword} placeholder='Password' autoCapitalize='none' onChangeText={(text) => setPassword(text)}/>
+                        <IonIcons name={showPassword ? 'eye-off' : "eye"} style={{fontSize: 24, marginRight: 5}} onPress={toggleShowPassword}/>
+                    </View>
+                    {loading ? (
+                        <ActivityIndicator size="large" color="#0000ff"/>
+                    ) : (
+                        <TouchableOpacity onPress={signIn}>
+                            <Text style={styles.btn}>Login</Text>
+                        </TouchableOpacity>
+                    )} 
+                    <TouchableOpacity onPress={() => {}}>
+                        <Text style={styles.forgot}>Forgot the password</Text>
+                    </TouchableOpacity>
 
   //       const user = users.find(
   //         u => u.email === email && u.password === password
