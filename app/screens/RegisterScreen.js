@@ -1,21 +1,49 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, StatusBar, ScrollView, SafeAreaView, Platform } from 'react-native';
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image, StatusBar, ScrollView, SafeAreaView, Platform, ActivityIndicator, Alert } from 'react-native';
 import MaterilaIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import IonIcons from "react-native-vector-icons/Ionicons";
 import DateTimePicker from '@react-native-community/datetimepicker';
-
+import { FIREBASE_AUTH } from '../../FirebaseConfig';
+import { createUserWithEmailAndPassword } from 'firebase/auth'; 
 
 
 export default function RegisterScreen( {navigation} ) {
-
+    
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [date, setDate] = useState(new Date);
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
-    const [text, setText] = useState('Date of Birth')
-     
+    const [text, setText] = useState('Date of Birth');
+    const auth = FIREBASE_AUTH;
+
+    const signUp = async () => {
+        setLoading(true);
+        try {
+            if (password.length < 8) {
+                alert("Password should be at least 8 characters long!");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+            const response = await createUserWithEmailAndPassword(auth, email, password);
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+            Alert.alert("Trilo", "Registration failed: " + error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
+
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     }
@@ -70,16 +98,16 @@ export default function RegisterScreen( {navigation} ) {
                     </View>
                     <View style={styles.register}>
                         <MaterilaIcons style={styles.icon} name='alternate-email' size={20} color="black"/>
-                        <TextInput placeholder='Email' style={{flex:1, paddingVertical: 0, fontSize: 18}} keyboardType='email-address'/>
+                        <TextInput style={{flex:1, paddingVertical: 0, fontSize: 18}} value={email} placeholder='Email' autoCapitalize='none' onChangeText={(text) => setEmail(text)}/>
                     </View>
                     <View style={styles.register}>
                         <FontAwesome5 style={styles.icon} name='lock' size={20} color="black"/>
-                        <TextInput secureTextEntry={!showPassword} placeholder='Password' style={{flex:1, paddingVertical: 0, fontSize: 18}}/>
+                        <TextInput style={{flex:1, paddingVertical: 0, fontSize: 18}} value={password} secureTextEntry={!showPassword} placeholder='Password' autoCapitalize='none' onChangeText={(text) => setPassword(text)}/>
                         <IonIcons name={showPassword ? 'eye-off' : "eye"} style={{fontSize: 24, marginRight: 5}} onPress={toggleShowPassword}/>
                     </View>
                     <View style={styles.register}>
                         <FontAwesome5 style={styles.icon} name='lock' size={20} color="black"/>
-                        <TextInput secureTextEntry={!showPassword} placeholder='Confirm Password' style={{flex:1, paddingVertical: 0, fontSize: 18}}/>
+                        <TextInput style={{flex:1, paddingVertical: 0, fontSize: 18}} value={confirmPassword} secureTextEntry={!showPassword} placeholder='Confirm password' autoCapitalize='none' onChangeText={(text) => setConfirmPassword(text)}/>
                         <IonIcons name={showPassword ? 'eye-off' : "eye"} style={{fontSize: 24, marginRight: 5}} onPress={toggleShowPassword}/>
                     </View>
                     <View style={styles.register}>
@@ -98,9 +126,13 @@ export default function RegisterScreen( {navigation} ) {
                             />
                         )}
                     </View>
-                    <TouchableOpacity onPress={() => {}}>
-                        <Text style={styles.btn}>Sign up</Text>
-                    </TouchableOpacity>
+                    {loading ? (
+                        <ActivityIndicator size="large" color="#0000ff"/>
+                    ) : (
+                        <TouchableOpacity onPress={signUp}>
+                            <Text style={styles.btn}>Sign up</Text>
+                        </TouchableOpacity>
+                    )}
                     <View style={{flexDirection: 'row'}}>
                         <Text style={{marginLeft: 5, fontSize: 15, fontWeight: 'bold'}}>Already sign up?</Text>
                         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
