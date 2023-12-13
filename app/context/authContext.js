@@ -11,25 +11,25 @@ const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState("");
   const [error, setError] = useState("");
 
-  const addUser = async newUser => {
-    await axios.post(API, newUser);
-  };
+  // const addUser = async newUser => {
+  //   await axios.post(API, newUser);
+  // };
 
-  function createUser(email, password) {
-    if (!email || !password) {
-      alert("Some inputs are empty!");
-      return;
-    }
+  // function createUser(email, password) {
+  //   if (!email || !password) {
+  //     alert("Some inputs are empty!");
+  //     return;
+  //   }
 
-    let newUser = {
-      email,
-      password,
-    };
+  //   let newUser = {
+  //     email,
+  //     password,
+  //   };
 
-    addUser(newUser);
+  //   addUser(newUser);
 
-    // navigate("/login");
-  }
+  //   // navigate("/login");
+  // }
 
   const logout = () => {
     localStorage.removeItem("password");
@@ -39,10 +39,10 @@ const AuthContextProvider = ({ children }) => {
   };
 
   async function login(email, password) {
-    if (!email || !password) {
-      alert("Some inputs are empty!");
-      return;
-    }
+    // if (!email || !password) {
+    //   alert("Some inputs are empty!");
+    //   return;
+    // }
 
     fetch("http://localhost:8000/users")
       .then(res => res.json())
@@ -65,9 +65,9 @@ const AuthContextProvider = ({ children }) => {
         user,
         error,
 
-        addUser,
+        // addUser,
         login,
-        createUser,
+        // createUser,
         logout,
       }}>
       {children}
